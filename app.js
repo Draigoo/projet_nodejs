@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 // modules
 const morgan = require('morgan');
 const express = require('express');
@@ -5,7 +7,9 @@ const path = require('path');
 const session = require("express-session");
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT;
+const user = require(path.join(__dirname,'/model/User.js'));
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -46,12 +50,25 @@ app.get('/login', function(req, res) {
     res.render("login", {title: "Connexion"});
 });
 
-app.post('/login', function(req, res) {
+app.post('/login', async function(req, res) {
 
     // Utilisateur fake ici
     // TODO : aller chercher l'utilisateur en base de données à partir du login et du (hash du) mot de passe
-    req.session.user = { firstname : "Jean", lastname : "Dupond"};
-    res.redirect("/home");
+    let users = await user.getAll();
+
+    let i = 0;
+    while(users[i])
+    {
+        if(req.body.login === users[i].name && req.body.password === users[i].password)
+        {
+            req.session.user = { firstname : req.body.login};
+            res.redirect("/home");
+        }
+        i++;
+    }
+    //res.redirect("/login");
+
+
 });
 
 app.get('/home', auth, function(req, res) {
