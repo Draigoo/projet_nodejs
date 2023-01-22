@@ -8,9 +8,10 @@ html(lang='en')
     body
         div.container-fluid
             nav(class="navbar navbar-light bg-light justify-content-between")
-                span(class="navbar-brand mb-0 h1") Mon site web
-
+                span(class="navbar-brand mb-0 h1") Ordonnanceur
                 if user
+                    a(href='/home') Accueil
+                    a(href='/reservation') Reservation
                     form.form-inline(method='POST' action="/logout")
                         span.mr-3 #{user.firstname} #{user.lastname}
                         button(class="btn btn-primary" type="submit") Déconnexion

@@ -9,6 +9,7 @@ const session = require("express-session");
 const app = express();
 const port = process.env.PORT;
 const user = require(path.join(__dirname,'/model/User.js'));
+const reservationRouter = require(path.join(__dirname,'routes/reservation.js'));
 
 
 // view engine setup
@@ -62,11 +63,10 @@ app.post('/login', async function(req, res) {
         if(req.body.login === users[i].name && req.body.password === users[i].password)
         {
             req.session.user = { firstname : req.body.login};
-            res.redirect("/home");
         }
         i++;
     }
-    //res.redirect("/login");
+    res.redirect("/home");
 
 
 });
@@ -81,7 +81,13 @@ app.post('/logout', function(req, res) {
     res.redirect("/login");
 });
 
+app.use("/reservation", reservationRouter);
+
+
+
+
 // server start
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
+

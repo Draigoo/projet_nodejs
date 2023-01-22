@@ -1,0 +1,20 @@
+extends layout
+
+block content
+    br
+    form(method='POST' action='')
+        div.form-group.mb-2
+            label(for='start_date') Date de début :
+            input.form-control.w-auto(type='datetime-local', id='start_date', name='start_date' required)
+        div.form-group
+            label(for='end_date') Date de fin :
+            input.form-control.w-auto(type='datetime-local', id='end_date', name='end_date' required)
+
+        div.form-group
+            label(for='options') Choix de la ressource:
+            select.form-control.w-auto(id='options', name='options' required)
+                each resource in list_resource
+                    option(value=resource.id) #{resource.type}
+
+
+        button.btn.btn-primary(type='submit') Réserver
