@@ -16,6 +16,10 @@ const Reservation = {
     },
 
     getByUser : async function(user) {
+        if(!user)
+        {
+            return await this.getAll();
+        }
         await client.connect();
         const db = client.db(dbName);
         const reservationCollection = db.collection('Reservation');
