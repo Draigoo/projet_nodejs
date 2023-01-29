@@ -10,7 +10,8 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/',async (req, res) => {
-    await reservation.insert(req.body.start_date, req.body.end_date, req.body.type);
+    console.log(req.session.user.firstname)
+    await reservation.insert(req.body.start_date, req.body.end_date, req.body.type, req.session.user);
     res.redirect("/home");
 
 

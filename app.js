@@ -13,7 +13,6 @@ const reservationRouter = require(path.join(__dirname,'routes/reservation.js'));
 const reservation = require(path.join(__dirname,'/model/Reservation.js'));
 
 
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -73,6 +72,10 @@ app.post('/login', async function(req, res) {
 
 app.get('/home', auth, async function(req, res) {
     res.render("accueil", {title: "Page d'accueil", user: req.session.user, date_reservation: await reservation.getAll()});
+});
+
+app.post('/home', auth, async function(req, res) {
+    res.render("accueil", {title: "Page d'accueil", user: req.session.user, date_reservation: await reservation.getByUser(req.body.user)});
 });
 
 app.post('/logout', function(req, res) {
