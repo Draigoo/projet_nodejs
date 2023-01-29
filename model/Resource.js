@@ -15,11 +15,13 @@ const Resource = {
         return ressources;
     },
 
-    getAvailable : async function() {
+    getType : async function() {
         let ressources = await this.getAll();
         let ressources_available = [];
         let isAlreadyAdded = 0;
 
+        //Permet d'avoir un tableau contenant uniquement une ressource de chaque type
+        //afin d'éviter une redondance dans l'affichage
         ressources.map(async (element) => {
             isAlreadyAdded = 0;
 
@@ -30,7 +32,7 @@ const Resource = {
                 }
             });
 
-            if(isAlreadyAdded === 0 && element.reservID === false)
+            if(isAlreadyAdded === 0)
             {
                 ressources_available.push(element);
             }

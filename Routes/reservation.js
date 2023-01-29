@@ -6,14 +6,14 @@ const user = require(path.join(__dirname,'../model/User.js'));
 const resource = require(path.join(__dirname,'../model/Resource.js'));
 
 router.get('/', async (req, res) => {
-    console.log(await resource.getAvailable());
-
-    res.render("reservation", {title: "Reservation", user : req.session.user, list_resource: await resource.getAvailable()});
+    res.render("reservation", {title: "Reservation", user : req.session.user, list_resource: await resource.getType()});
 });
 
 router.post('/',async (req, res) => {
-
+    await reservation.insert(req.body.start_date, req.body.end_date, req.body.type);
     res.redirect("/home");
+
+
 
 
 });

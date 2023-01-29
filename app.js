@@ -10,6 +10,8 @@ const app = express();
 const port = process.env.PORT;
 const user = require(path.join(__dirname,'/model/User.js'));
 const reservationRouter = require(path.join(__dirname,'routes/reservation.js'));
+const reservation = require(path.join(__dirname,'/model/Reservation.js'));
+
 
 
 // view engine setup
@@ -53,8 +55,6 @@ app.get('/login', function(req, res) {
 
 app.post('/login', async function(req, res) {
 
-    // Utilisateur fake ici
-    // TODO : aller chercher l'utilisateur en base de données à partir du login et du (hash du) mot de passe
     let users = await user.getAll();
 
     let i = 0;
@@ -71,8 +71,8 @@ app.post('/login', async function(req, res) {
 
 });
 
-app.get('/home', auth, function(req, res) {
-    res.render("layout", {title: "Page d'accueil", user : req.session.user});
+app.get('/home', auth, async function(req, res) {
+    res.render("accueil", {title: "Page d'accueil", user: req.session.user, date_reservation: await reservation.getAll()});
 });
 
 app.post('/logout', function(req, res) {

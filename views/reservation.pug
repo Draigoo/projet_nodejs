@@ -11,8 +11,8 @@ block content
             input.form-control.w-auto(type='datetime-local', id='end_date', name='end_date' required)
 
         div.form-group
-            label(for='options') Choix de la ressource:
-            select.form-control.w-auto(id='options', name='options' required)
+            label(for='type') Choix de la ressource:
+            select.form-control.w-auto(id='type', name='type' required)
                 each resource in list_resource
                     option(value=resource.id) #{resource.type}
 
