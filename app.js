@@ -10,6 +10,8 @@ const app = express();
 const port = process.env.PORT;
 const user = require(path.join(__dirname,'/model/User.js'));
 const reservationRouter = require(path.join(__dirname,'routes/reservation.js'));
+const ressourceRouter = require(path.join(__dirname,'routes/ressource.js'));
+
 const reservation = require(path.join(__dirname,'/model/Reservation.js'));
 
 
@@ -61,7 +63,7 @@ app.post('/login', async function(req, res) {
     {
         if(req.body.login === users[i].name && req.body.password === users[i].password)
         {
-            req.session.user = { firstname : req.body.login};
+            req.session.user = { firstname : req.body.login, isAdmin : users[i].isAdmin};
         }
         i++;
     }
@@ -85,6 +87,7 @@ app.post('/logout', function(req, res) {
 });
 
 app.use("/reservation", reservationRouter);
+app.use("/ressource", ressourceRouter);
 
 
 

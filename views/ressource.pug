@@ -1,0 +1,23 @@
+extends layout
+
+block content
+    br
+    form(method='POST' action='')
+        div.form-group.mb-2
+            label(for='type') type :
+            input.form-control.w-auto(type='string', id='type', name='type' required)
+
+        button.btn.btn-primary(type='submit') Ajouter
+
+    br
+    h1 Liste des ressources
+    table(class='table')
+        thead
+            tr
+                th(scope='col') id
+                th(scope='col') type
+        tbody
+            each element in list_resource
+                tr
+                    td #{element._id}
+                    td #{element.type}

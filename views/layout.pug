@@ -20,6 +20,8 @@ html(lang='en')
                 if user
                     a(href='/home') Accueil
                     a(href='/reservation') Reservation
+                    if user.isAdmin
+                        a(href='/ressource') Ressource
                     form.form-inline(method='POST' action="/logout")
                         span.mr-3 #{user.firstname} #{user.lastname}
                         button(class="btn btn-primary" type="submit") Déconnexion

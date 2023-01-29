@@ -41,6 +41,17 @@ const Resource = {
         return ressources_available;
     },
 
+    insert : async function(type) {
+        await client.connect();
+        const db = client.db(dbName);
+        const ressourcesCollection = db.collection('Ressources');
+
+        const doc = {
+            type: type
+        }
+        await ressourcesCollection.insertOne(doc);
+    },
+
 }
 
 module.exports = Resource;
